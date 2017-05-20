@@ -1,0 +1,58 @@
+﻿@import "../../../assets/css/base.scss";
+.zmiti-result-main-ui{
+  @include pos(a);
+  left:0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  .zmiti-result-C{
+    padding:100px 30px;
+    box-sizing:border-box;
+  }
+  .zmiti-result-main{
+    width: 580px;
+    margin:0 auto;
+    height: 1200px;
+    background: #fff;
+    @include pos(r);
+    .zmiti-result-title{
+      width: 200px;
+      $size:80px;
+      height: $size;
+      line-height: $size;
+      font-size: 34px;
+      text-align: center;
+      @include pos(a);
+      left: 50%;
+      margin-left: -100px;
+      top: -$size /2;;
+      background: #fff;
+      @include br(14px);
+      border:1px solid #444;
+    }
+    .zmiti-result-type{
+      padding-top:40px;
+      text-indent: 2em;
+      border-bottom:1px solid #999;
+      width: 96%;
+      margin: 0 auto;
+      padding-bottom:20px;
+    }
+    .zmiti-result-item-C{
+      &:first-of-type{
+        border:1px solid red;
+        margin-top: 60px;
+      }
+
+    }
+    .zmiti-result-item{
+      margin:20px 0;
+
+      &>div{
+        width: 200px;
+        margin:0 auto;
+        text-align: center;
+      }
+    }
+  }
+}

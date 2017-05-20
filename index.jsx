@@ -6,7 +6,13 @@ injectTapEventPlugin();
 import IScroll from 'iscroll';
 import './assets/css/index.css';
 
-import ZmitiLoadingApp from './loading/index.jsx';
+import Obserable from './components/public/obserable';
+
+var obserable = new Obserable();
+
+import ZmitiIndexApp from './index/index.jsx';
+import ZmitiResultApp from './result/index.jsx';
+
 export class App extends Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +23,9 @@ export class App extends Component {
 			loadingImg:[],
 			showLoading:false,
 			name:'',
-			tel:''
+			tel:'',
+			isEntry:true,
+			list:[]
 			
 		}
 		this.viewW = document.documentElement.clientWidth;
@@ -26,54 +34,20 @@ export class App extends Component {
 	render() {
 		
 		var mainStyle={};
-		if(this.state.indexBg){
-			mainStyle.background = 'url('+this.state.indexBg+') no-repeat center / cover'
+		
+
+		var data = {
+			list:this.state.list || [],
+			obserable,
+			IScroll
 		}
 
 		return (
 			<div className='zmiti-main-ui' style={mainStyle}>
-				<section className='zmiti-main-title'>{this.state.title}</section>
-				<div className={'zmiti-main-btn ' + (this.state.tap?'active':'')} onTouchTap={this.beginTest.bind(this)}>开始考试</div>
-				<div className={'zmiti-main-form '+(this.state.showForm?'active':'')}>
-					<div className='zmiti-form-title'>{window.formTitle||'请输入你的姓名和电话'}</div>
-					<div className='zmiti-form-input'>
-						<label>姓名 ：</label><input value={this.state.name} onChange={e=>{this.setState({name:e.target.value})}} type='text'/>
-					</div>
-					<div className='zmiti-form-input'>
-						<label>电话 ：</label><input  onChange={e=>{this.setState({tel:e.target.value})}} type='text'/>
-					</div>
-					<div onTouchTap={this.submit.bind(this)} className={'zmiti-main-submit '+(this.state.submit?'active':'')}>提交</div>
-				</div>
+				{!this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+				{this.state.isEntry && <ZmitiResultApp {...data}></ZmitiResultApp>}
 			</div>
 		);
-	}
-
-	submit(){
-		this.setState({
-			submit:true
-		});
-
-		setTimeout(()=>{
-			this.setState({
-				submit:false
-			});			
-		},100);
-	}
-
-	beginTest(){
-
-		this.setState({
-			tap:true
-		});
-
-		setTimeout(()=>{
-			this.setState({
-				tap:false,
-				showForm:true,
-			});
-
-		},100);
-
 	}
 
 
@@ -292,12 +266,18 @@ export class App extends Component {
 	 
 
 	componentDidMount() {
+
+		obserable.on('entryResult',()=>{
+			this.setState({
+				isEntry:true
+			})
+		})
 		
 		var s = this;
 		$.getJSON('./assets/js/data.json',(data)=>{
 
-			this.state.indexBg = data.indexBg;
-			this.state.title = data.title;
+			this.state.list = data.list;
+
 			this.forceUpdate();
 			
 			$.ajax({
@@ -450,7 +430,14 @@ export class App extends Component {
 	}
 
 	loading(arr, fn, fnEnd){
+        var arr = arr ||[];
         var len = arr.length;
+       
+
+        if(len<=0){
+        	fnEnd();
+        	return;
+        }
         var count = 0;
         var i = 0;
         

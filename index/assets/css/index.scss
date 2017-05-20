@@ -1,0 +1,46 @@
+﻿@import "../../../assets/css/base.scss";
+
+html, body, div, p, ul, li, ol, dl, dt, dd, header, footer, video, h1, h2, h3, h4, canvas, section, figure {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+html, body {
+  height: 100%;
+}
+body{
+	  font-family: "Helvetica Neue", 'Helvetica', "Microsoft YaHei", '微软雅黑', arial, sans-serif;
+	  overflow-x:hidden;
+}
+img {
+  border: none;
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+}
+
+input, textarea {
+  outline: none;
+}
+
+.zmiti-index-main-ui{
+  
+  .zmiti-goto-search{
+    width: 160px;
+    height: 50px;
+    margin:100px auto;
+    @include br(10px);
+    line-height: 50px;
+    background: #999;
+    color:#fff;
+    text-align: center;
+  }  
+}
