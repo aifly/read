@@ -117,3 +117,11 @@
    left: 0;
    top: 0;
 }
+
+.zmiti-text-overflow{
+    overflow: hidden;
+    white-space:nowrap;
+    word-break:break-all;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+}

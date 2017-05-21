@@ -33,7 +33,9 @@ export class App extends Component {
 	}
 	render() {
 		
-		var mainStyle={};
+		var mainStyle={
+			background:'url(./assets/images/bg.jpg) repeat-y '
+		};
 		
 
 		var data = {
@@ -176,7 +178,7 @@ export class App extends Component {
 
 			$.ajax({
 				type:'get',
-				url: "http://api.zmiti.com/weixin/jssdk.php?type=signature&durl="+code_durl+"&worksid="+worksid,
+				url: "http://api.zmiti.com/weixin/jssdk.php?type=signature&durl="+code_durl,
 				dataType:'jsonp',
 				jsonp: "callback",
 			    jsonpCallback: "jsonFlickrFeed",
@@ -266,35 +268,102 @@ export class App extends Component {
 	 
 
 	componentDidMount() {
-
+		this.wxConfig('读书','读书','');
 		obserable.on('entryResult',()=>{
 			this.setState({
 				isEntry:true
 			})
+		});
+
+		obserable.on('fillData',(list)=>{
+			this.setState({
+				list
+			})
 		})
 		
 		var s = this;
-		$.getJSON('./assets/js/data.json',(data)=>{
+		
+		var data = {
+			wxappid:'wxfacf4a639d9e3bcc',
+			wxappsecret:'149cdef95c99ff7cab523d8beca86080'
+		}
 
-			this.state.list = data.list;
+		s.wxappid = data.wxappid;
+		s.wxappsecret = data.wxappsecret;
 
-			this.forceUpdate();
-			
-			$.ajax({
-				url:'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
-				data:{
-					code:s.getQueryString('code'),
-					wxappid:data.wxappid,
-					wxappsecret:data.wxappsecret
-				},
-				error(e){
-				},
-				success(dt){
-					 
-					if(dt.getret === 0){
+		$.ajax({
+			url:'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
+			data:{
+				code:s.getQueryString('code'),
+				wxappid:data.wxappid,
+				wxappsecret:data.wxappsecret
+			},
+			error(e){
+			},
+			success(dt){
+				 
+				if(dt.getret === 0){
+					s.setState({
+						showLoading:true
+					});
+					s.loading(data.loadingImg,(scale)=>{
 						s.setState({
-							showLoading:true
+							progress:(scale*100|0)+'%'
+						})
+					},()=>{
+						s.setState({
+							showLoading:false
 						});
+						
+						s.defaultName = dt.userinfo.nickname || data.username || '智媒体';
+
+						localStorage.setItem('nickname',dt.userinfo.nickname );
+						localStorage.setItem('headimgurl',dt.userinfo.headimgurl);
+						s.openid = dt.userinfo.openid;
+						s.nickname = dt.userinfo.nickname;
+						s.headimgurl = dt.userinfo.headimgurl;
+
+						if (wx.posData && wx.posData.longitude) {
+							s.getPos(dt.userinfo.nickname, dt.userinfo.headimgurl);
+						}
+						s.state.myHeadImg = dt.userinfo.headimgurl
+						s.forceUpdate();
+					});
+					
+				}
+				else{
+					s.setState({
+						showLoading:true
+					});
+
+					if(s.isWeiXin() ){
+
+						if(localStorage.getItem('oauthurl'+s.worksid)){
+							window.location.href = localStorage.getItem('oauthurl'+s.worksid);
+							return;
+						}
+
+						$.ajax({
+							url:'http://api.zmiti.com/v2/weixin/getoauthurl/',
+							type:'post',
+							data:{
+								redirect_uri:window.location.href.replace(/code/ig,'zmiti'),
+								scope:'snsapi_userinfo',
+								worksid:s.worksid,
+								state:new Date().getTime()+''
+							},
+							error(){
+							},
+							success(dt){
+								if(dt.getret === 0){
+									localStorage.setItem('oauthurl'+s.worksid,dt.url);
+									window.location.href =  dt.url;
+								}
+							}
+						})
+					}
+					else{
+
 						s.loading(data.loadingImg,(scale)=>{
 							s.setState({
 								progress:(scale*100|0)+'%'
@@ -303,114 +372,17 @@ export class App extends Component {
 							s.setState({
 								showLoading:false
 							});
-							
-							s.defaultName = dt.userinfo.nickname || data.username || '智媒体';
 
-							localStorage.setItem('nickname',dt.userinfo.nickname );
-							localStorage.setItem('headimgurl',dt.userinfo.headimgurl);
-							s.openid = dt.userinfo.openid;
-							s.nickname = dt.userinfo.nickname;
-							s.headimgurl = dt.userinfo.headimgurl;
-						
-
-							if (wx.posData && wx.posData.longitude) {
-								s.getPos(dt.userinfo.nickname, dt.userinfo.headimgurl);
-							}
-
-						
-							s.state.myHeadImg = dt.userinfo.headimgurl
+							s.defaultName =  data.username || '智媒体';
 							s.forceUpdate();
 
-						});
-						
-					}
-					else{
-
-						
-						s.setState({
-							showLoading:true
-						});
-
-						if(s.isWeiXin() ){
-
-							if(localStorage.getItem('oauthurl'+s.worksid)){
-								window.location.href = localStorage.getItem('oauthurl'+s.worksid);
-								return;
-							}
-
-							$.ajax({
-								url:'http://api.zmiti.com/v2/weixin/getoauthurl/',
-								type:'post',
-								data:{
-									redirect_uri:window.location.href.replace(/code/ig,'zmiti'),
-									scope:'snsapi_userinfo',
-									worksid:s.worksid,
-									state:new Date().getTime()+''
-								},
-								error(){
-								},
-								success(dt){
-									if(dt.getret === 0){
-										localStorage.setItem('oauthurl'+s.worksid,dt.url);
-										window.location.href =  dt.url;
-									}
-								}
-							})
-						}
-						else{
-
-							s.loading(data.loadingImg,(scale)=>{
-								s.setState({
-									progress:(scale*100|0)+'%'
-								})
-							},()=>{
-								s.setState({
-									showLoading:false
-								});
-
-								$.ajax({
-									url:'http://api.zmiti.com/v2/works/update_pvnum/',
-									data:{
-										worksid:s.worksid
-									},
-									success(data){
-										if(data.getret === 0){
-											console.log(data);
-										}
-									}
-								});
-
-
-								s.defaultName =  data.username || '智媒体';
-							
-								
-								s.forceUpdate();
-
-						});
-
-
-						 
-						}
+					});
 
 					}
-
 
 				}
-			});
 
-
-			this.defaultName = data.username;
-		
-
-			s.defaultName = localStorage.getItem('nickname') || data.username || '智媒体';
-		
-
-			s.headimgurl = localStorage.getItem('headimgurl');
-		
-			s.forceUpdate();
-			
-
-			
+			}
 		});
 
 
