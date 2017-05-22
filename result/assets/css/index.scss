@@ -4,12 +4,31 @@
   left:0;
   top: 0;
   width: 100%;
+  height: 100vh;
   overflow: hidden;
   .zmiti-result-C{
     padding:100px 30px;
     box-sizing:border-box;
   }
   $baseColor:#2fd8fd;
+
+  @at-root.zmiti-current-qrcode{
+    width: 100%;
+    height: 100vh;
+    @include pos(a);
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.8);
+    z-index: 100;
+    span{
+      color: #fff;
+      @include pos(a);
+      width: 100%;
+      text-align: center;
+      top: 50%;
+      margin-top: -200px;
+    }
+  }
   .zmiti-result-main{
     width: 580px;
     margin:0 auto;
@@ -17,19 +36,18 @@
     @include br(10px);
     @include pos(r);
     .zmiti-result-title{
-      width: 200px;
-      $size:80px;
+      width: 300px;
+      $size:64px;
+      img{
+        vertical-align: top;
+      }
       height: $size;
       line-height: $size;
-      font-size: 34px;
       text-align: center;
       @include pos(a);
       left: 50%;
-      margin-left: -100px;
-      top: -$size /2;;
-      background: #fff;
-      @include br(14px);
-      border:1px solid #444;
+      margin-left: -150px;
+      top: -$size /2 ;
     }
     .zmiti-result-type{
       padding-top:40px;
@@ -59,22 +77,54 @@
       line-height: 50px;
       text-align: center;
       color:#fff;
-      background:$baseColor;
-      @include br(10px);
+     
       margin:40px auto 0;
       @include pos(r);
       @include transition(.1s);
+      z-index: 10;
+      &>div{
+        @include pos(a);
+        width: 100%;
+        height: 100%;
+        background:#e0b27c;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        @include br(10px);
+      }
+      &>section{
+        @include pos(a);
+        width: 140px;
+        left: 0;
+        top: 0;
+        height: 52px;
+        background: #381f06;
+        @include br(10px);
+        z-index: 8; 
+      }
       &.active{
-        @include transform(scale(.95));
-        &:before{
-          content:'';
-          width: 100%;
-          height: 100%;
-          left: 0;
-          top: 0;
-          @include pos(a);
-          box-shadow:0 0 80px rgba(47,216,253,.6);
-        }
+
+         &>div{
+            @include pos(a);
+            width: 100%;
+            height: 52px;
+            background:#e0b27c;
+            @include transform(translate3d(0,2px,0));
+            z-index: 10;
+            left: 0;
+            top: 0;
+            @include br(10px);
+          }
+          &>section{
+            @include pos(a);
+            width: 140px;
+            left: 0;
+            bottom: 0;
+            height: 50px;
+            background: #381f06;
+            @include br(10px);
+            z-index: 8; 
+          }
       }
     }
     .zmiti-search-input{
@@ -109,9 +159,19 @@
       }
 
 
+
+
       .zmiti-result-item{
         &:last-of-type{
           border:none;
+        }
+         &>img{
+          @include pos(f);
+          left: 0;
+          top: 0;
+          width: 640px;
+          height: 100vh;
+          z-index: 1000;
         }
       }
 
@@ -119,17 +179,29 @@
     .zmiti-result-item{
       margin:30px auto;
       padding-bottom:30px;
-      border-bottom:1px dashed #999;
+     // border-bottom:1px dashed #999;
       width: 96%;
 
       &>div{
+        @include transform3d();
         img{
           width: 200px;
+          height:200px;
+          @include pos(r);
+         
         }
+        span{
+          display: block;
+          font-size: 20px;
+          color:#f00;
+        }
+        @include pos(r);
+
         div:nth-of-type(1){
           font-size: 32px;
           margin:10px auto;
-          max-width: 300px;
+          max-width: 500px;
+          text-align: center;
         }
         div:nth-of-type(2){
           color:#999;
@@ -147,6 +219,7 @@
       }
       @include pos(r);
       .zmiti-result-num{
+        display: none;
         @include pos(a);
         left: 1em;
         top:30%;

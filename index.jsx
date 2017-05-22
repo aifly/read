@@ -12,6 +12,7 @@ var obserable = new Obserable();
 
 import ZmitiIndexApp from './index/index.jsx';
 import ZmitiResultApp from './result/index.jsx';
+import ZmitiLoadingApp from './loading/index.jsx';
 
 export class App extends Component {
 	constructor(props) {
@@ -21,11 +22,14 @@ export class App extends Component {
 		this.state = {
 			progress:'0%',
 			loadingImg:[],
-			showLoading:false,
+			showLoading:true,
 			name:'',
 			tel:'',
-			isEntry:true,
-			list:[]
+			isEntry:false,
+			list:[],
+			qrList:[],
+			progress:'0%',
+			qrcodeurl:''
 			
 		}
 		this.viewW = document.documentElement.clientWidth;
@@ -41,15 +45,125 @@ export class App extends Component {
 		var data = {
 			list:this.state.list || [],
 			obserable,
-			IScroll
+			IScroll,
+			progress:this.state.progress
 		}
 
+			
+
+			var resultStyle ={
+				background:'url(./assets/images/main-bg.jpg) repeat-y ',
+				minHeight:this.viewH - 200
+			}
+
 		return (
-			<div className='zmiti-main-ui' style={mainStyle}>
-				{!this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
-				{this.state.isEntry && <ZmitiResultApp {...data}></ZmitiResultApp>}
+
+
+			<div className='zmiti-main-ui' >
+				{false && this.state.qrList.map((item,i)=>{
+					return <img key={i} style={{opacity:0,height:200,left:(this.viewW - 200)/2,width:200,position:'absolute',top:item.top,zIndex:100}} src={item.qrcodeurl}/>
+				})}
+
+				{this.state.qrcodeurl && <div onTouchStart={this.closeMask.bind(this)} className='zmiti-current-qrcode'>
+									<span>长按二维码识别</span>
+									<img  style={{opacity:1,height:300,left:(this.viewW - 300)/2,width:300,position:'absolute',top:(this.viewH - 300) /2,zIndex:100}} src={this.state.qrcodeurl}/>
+								</div>}
+				
+				{this.state.showLoading && <ZmitiLoadingApp {...data}></ZmitiLoadingApp>}
+				{!this.state.showLoading && !this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+				{!this.state.showLoading &&  this.state.isEntry && <ZmitiResultApp {...data}></ZmitiResultApp>}
+
+				
+				<div hidden className='zmiti-result-main-ui' ref='zmiti-result-main-ui' style={{height:this.viewH,WebkitTransform:'translate3d('+(this.state.isEntry?0:'1110px')+',0,0)'}}>
+				
+				<div className='zmiti-result-C' style={mainStyle}>
+					<div className="zmiti-result-main" style={resultStyle}>
+						<div className='zmiti-result-title'><img src='./assets/images/my-read.png'/></div>
+						<div className='zmiti-search-input'>
+							<img src='./assets/images/search-ico.png'/>
+							<input ref='input' value={this.state.keyworks} onChange={e=>{this.setState({keyworks:e.target.value})}} type='text' placeholder='手机号/微信号/姓名'/>
+						</div>
+						<div onTouchTap={this.beginSearch.bind(this)} className={'zmiti-search-btn '+ (this.state.search?'active':'')}>
+							<section></section>
+							<div>搜索</div>
+						</div>
+						<div className='zmiti-search-result-tip' ref='zmiti-search-result-tip'>搜索结果:</div>
+
+						{this.state.list.length<=0 &&<div className='zmiti-no-result'>暂无结果！</div>}
+						{this.state.list.map((item,i)=>{
+							return <div key={i} className='zmiti-result-item-C'>
+								<div className='zmiti-result-type'>{item.type}</div>
+								{item.children.map((child,k)=>{
+									return <section className='zmiti-result-item' key={k}>
+											<span className='zmiti-result-num'>{k+1}</span>
+
+											<div>
+												<img  src={child.qrcodeurl||'./assets/images/qrcode.jpg'}/>
+
+												<div>{child.booktitle}</div>
+												<div>{child.date}</div>
+											</div>
+									</section>
+								})}
+							</div>
+						})}	
+					</div>
+				</div>
+			</div>
 			</div>
 		);
+	}
+
+	closeMask(e){
+		if(e.target.nodeName === 'IMG'){
+			return;
+		}
+		this.setState({
+			qrcodeurl:''
+		})
+	}
+
+	beginSearch(){
+		this.setState({
+			search:true
+		});
+		this.refs['input'].blur();
+		let {obserable} = this.props;
+		setTimeout(()=>{
+
+			this.setState({
+				search:false
+			});
+
+			var s = this;
+
+			$.ajax({
+				url:"http://api.zmiti.com/v2/book/get_bookqrcode",
+				data:{
+					userinfo:s.state.keyworks
+				}
+			}).done((data)=>{
+				if(data.getret === 0){
+					s.setState({
+						list:data.list
+					})
+
+					setTimeout(()=>{
+						s.scroll.refresh();
+						if(data.list.length > 2){
+							s.scroll.scrollTo(0,-s.refs['zmiti-search-result-tip'].offsetTop - 100,600);;
+						}
+						var items = $('.zmiti-result-item');
+						var list = [];
+						var children = [];
+					
+					},400);
+				}
+			},()=>{});
+
+		},200);
+
+
 	}
 
 
@@ -85,7 +199,7 @@ export class App extends Component {
 							url:'http://api.zmiti.com/v2/weixin/save_userview/',
 							type:'post',
 							data:{
-								worksid:s.worksid,
+								//worksid:s.worksid,
 								wxopenid:s.openid,
 								wxname:nickname,
 								usercity:opt.address,
@@ -170,6 +284,7 @@ export class App extends Component {
     }
 
 	wxConfig(title,desc,img,appId='wxfacf4a639d9e3bcc',worksid){
+
 		   var durl = location.href.split('#')[0]; //window.location;
 		        var code_durl = encodeURIComponent(durl);
 
@@ -222,7 +337,7 @@ export class App extends Component {
 						        };
 
 						        if((s.nickname || s.headimgurl) && s.openid){
-						        	s.getPos(s.nickname,s.headimgurl);
+						        	//s.getPos(s.nickname,s.headimgurl);
 						        }
 						       
 						    }
@@ -269,15 +384,37 @@ export class App extends Component {
 
 	componentDidMount() {
 		this.wxConfig('读书','读书','');
+
+		var s = this;
 		obserable.on('entryResult',()=>{
 			this.setState({
 				isEntry:true
-			})
+			},()=>{
+				s.scroll =  new IScroll($('.zmiti-result-main-ui')[0],{
+					scrollbars:true
+				});
+				obserable.on('refreshScroll',()=>{
+					s.scroll.refresh();
+				})
+			});
+			
 		});
 
 		obserable.on('fillData',(list)=>{
 			this.setState({
-				list
+				list,
+			})
+		})
+
+		obserable.on('fillQrList',(qrList)=>{
+			this.setState({
+				qrList
+			})
+		})
+
+		obserable.on('fillqrcode',(data)=>{
+			this.setState({
+				qrcodeurl:data.qrcodeurl,
 			})
 		})
 		
@@ -285,12 +422,29 @@ export class App extends Component {
 		
 		var data = {
 			wxappid:'wxfacf4a639d9e3bcc',
-			wxappsecret:'149cdef95c99ff7cab523d8beca86080'
+			wxappsecret:'149cdef95c99ff7cab523d8beca86080',
+			loadingImg:[
+				'./assets/images/title.png',
+				'./assets/images/main.png',
+				'./assets/images/loading.jpg',
+				'./assets/images/zmiti.png',
+				'./assets/images/my-read.png',
+			]
 		}
 
 		s.wxappid = data.wxappid;
 		s.wxappsecret = data.wxappsecret;
-
+		s.loading(data.loadingImg,(scale)=>{
+						s.setState({
+							progress:(scale*100|0)+'%'
+						})
+					},()=>{
+						s.setState({
+							showLoading:false
+						});
+						
+					});
+		return;
 		$.ajax({
 			url:'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
 			data:{
@@ -303,9 +457,7 @@ export class App extends Component {
 			success(dt){
 				 
 				if(dt.getret === 0){
-					s.setState({
-						showLoading:true
-					});
+					
 					s.loading(data.loadingImg,(scale)=>{
 						s.setState({
 							progress:(scale*100|0)+'%'
@@ -313,7 +465,11 @@ export class App extends Component {
 					},()=>{
 						s.setState({
 							showLoading:false
+						},()=>{
+							 
+							
 						});
+
 						
 						s.defaultName = dt.userinfo.nickname || data.username || '智媒体';
 
@@ -324,7 +480,7 @@ export class App extends Component {
 						s.headimgurl = dt.userinfo.headimgurl;
 
 						if (wx.posData && wx.posData.longitude) {
-							s.getPos(dt.userinfo.nickname, dt.userinfo.headimgurl);
+							//s.getPos(dt.userinfo.nickname, dt.userinfo.headimgurl);
 						}
 						s.state.myHeadImg = dt.userinfo.headimgurl
 						s.forceUpdate();
@@ -332,35 +488,35 @@ export class App extends Component {
 					
 				}
 				else{
-					s.setState({
-						showLoading:true
-					});
+				 
 
 					if(s.isWeiXin() ){
 
-						if(localStorage.getItem('oauthurl'+s.worksid)){
+						
+
+						/*if(localStorage.getItem('oauthurl'+s.worksid)){
 							window.location.href = localStorage.getItem('oauthurl'+s.worksid);
 							return;
-						}
+						}*/
 
-						$.ajax({
+						/*$.ajax({
 							url:'http://api.zmiti.com/v2/weixin/getoauthurl/',
 							type:'post',
 							data:{
 								redirect_uri:window.location.href.replace(/code/ig,'zmiti'),
 								scope:'snsapi_userinfo',
-								worksid:s.worksid,
+								worksid:'',
 								state:new Date().getTime()+''
 							},
 							error(){
 							},
 							success(dt){
 								if(dt.getret === 0){
-									localStorage.setItem('oauthurl'+s.worksid,dt.url);
+									//localStorage.setItem('oauthurl'+s.worksid,dt.url);
 									window.location.href =  dt.url;
 								}
 							}
-						})
+						})*/
 					}
 					else{
 
@@ -371,12 +527,13 @@ export class App extends Component {
 						},()=>{
 							s.setState({
 								showLoading:false
+							},()=>{
+								
+								 
 							});
 
-							s.defaultName =  data.username || '智媒体';
-							s.forceUpdate();
-
-					});
+							
+						});
 
 					}
 
@@ -386,18 +543,6 @@ export class App extends Component {
 		});
 
 
-
-		$(document).one('touchstart',()=>{
-			/*this.refs['talkAudio'].pause();
-			this.refs['talkAudio'].muted = true;
-			this.refs['talkAudio'].play();
-			setTimeout(()=>{
-				this.refs['talkAudio'].muted = false;
-			},500);
-			if(this.refs['audio'] && this.refs['audio'].paused){
-				this.refs['audio'].play();
-			};*/
-		})
 		
 	}
 

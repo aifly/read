@@ -28,7 +28,9 @@
 				document.body.appendChild(script);
 			}
 
-			window.formTitle = '请输入你的姓名和电话';
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+
 
 			/*(function(){
 				var script  = document.createElement('script');
