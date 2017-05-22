@@ -383,7 +383,7 @@ export class App extends Component {
 	 
 
 	componentDidMount() {
-		this.wxConfig('读书','读书','');
+		this.wxConfig('新华社领读者计划','小新邀请您参加新华社领读者计划','http://h5.zmiti.com/public/read/assets/images/300.jpg');
 
 		var s = this;
 		obserable.on('entryResult',()=>{
