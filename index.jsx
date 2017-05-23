@@ -14,7 +14,7 @@ import ZmitiIndexApp from './index/index.jsx';
 import ZmitiResultApp from './result/index.jsx';
 import ZmitiLoadingApp from './loading/index.jsx';
 import ZmitiNavApp from './nav/index.jsx';
-
+import ZmitiAreaListApp from './area/index.jsx';
 export class App extends Component {
 	constructor(props) {
 		super(props);
@@ -75,7 +75,8 @@ export class App extends Component {
 				{!this.state.showLoading && !this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 				{!this.state.showLoading &&  this.state.isEntry && <ZmitiResultApp {...data}></ZmitiResultApp>}
 				*/}
-				{<ZmitiNavApp {...data}></ZmitiNavApp>}
+				
+				{<ZmitiAreaListApp {...data}></ZmitiAreaListApp>}
 
 				
 				 
