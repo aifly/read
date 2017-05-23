@@ -7,7 +7,7 @@ class ZmitiIndexApp extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			count:0
+			count:'200,000,000'
 		};
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -21,8 +21,8 @@ class ZmitiIndexApp extends Component {
 
 				<section className='zmiti-index-scroll'>
 					<div className='zmiti-index-title'>
-						<img src='./assets/images/title.png'/>
-						<div className='zmiti-read-btn'>读书报名</div>
+						<img src='./assets/images/title1.png'/>
+						<div className='zmiti-read-btn'><a href="http://cn.mikecrm.com/7cDhYqu?from=groupmessage">读书报名</a></div>
 						<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>我的阅读</div>
 						<div className='zmiti-read-count'>
 							{this.state.count}
@@ -79,24 +79,25 @@ class ZmitiIndexApp extends Component {
 	componentDidMount() {
 		let {IScroll } = this.props;
 		this.scroll = new IScroll(this.refs['zmiti-index-main-ui'],{
-			scrollbars:true
+			scrollbars:true,
+			preventDefault:false
 		});
 
 		setTimeout(()=>{
 			this.scroll.refresh();
 		},400)
 		var s = this;
-		$.ajax({
+		/*$.ajax({
 			url:'http://api.zmiti.com/v2/book/get_usercount/',
 			data:{},
 
 		}).done((data)=>{
 			if(data.getret === 0){
 				s.setState({
-					count:data.count
+					count:'200,000,000'
 				})
 			}
-		})
+		})*/
 	}
 }
 export default PubCom(ZmitiIndexApp);
