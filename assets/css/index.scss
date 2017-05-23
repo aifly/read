@@ -40,8 +40,7 @@ $viewW:640px;
   @include pos(a);
   width:640px;
   height: 100vh;
-  left: 50%;
-  margin-left: -320px;
+  left:0;
 
 
   .zmiti-main-title{

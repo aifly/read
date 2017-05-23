@@ -1,0 +1,13 @@
+﻿@import "../../../assets/css/base.scss";
+
+$viewW:640px;
+.zmiti-nav-main-ui{
+  width: $viewW;
+  height: 100%;
+  @include pos(a);
+  left: 50%;
+  top: 0;
+  margin-left: -$viewW / 2;
+  background-color: #ccc;
+  z-index: 100;
+}

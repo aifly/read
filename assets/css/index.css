@@ -50,8 +50,7 @@ input, textarea {
   position: absolute;
   width: 640px;
   height: 100vh;
-  left: 50%;
-  margin-left: -320px; }
+  left: 0; }
   .zmiti-main-ui .zmiti-main-title {
     position: absolute;
     color: #842d18;

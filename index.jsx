@@ -13,6 +13,7 @@ var obserable = new Obserable();
 import ZmitiIndexApp from './index/index.jsx';
 import ZmitiResultApp from './result/index.jsx';
 import ZmitiLoadingApp from './loading/index.jsx';
+import ZmitiNavApp from './nav/index.jsx';
 
 export class App extends Component {
 	constructor(props) {
@@ -69,47 +70,15 @@ export class App extends Component {
 									<img  style={{opacity:1,height:300,left:(this.viewW - 300)/2,width:300,position:'absolute',top:(this.viewH - 300) /2,zIndex:100}} src={this.state.qrcodeurl}/>
 								</div>}
 				
-				{this.state.showLoading && <ZmitiLoadingApp {...data}></ZmitiLoadingApp>}
+				{/*
+					{this.state.showLoading && <ZmitiLoadingApp {...data}></ZmitiLoadingApp>}
 				{!this.state.showLoading && !this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 				{!this.state.showLoading &&  this.state.isEntry && <ZmitiResultApp {...data}></ZmitiResultApp>}
+				*/}
+				{<ZmitiNavApp {...data}></ZmitiNavApp>}
 
 				
-				<div hidden className='zmiti-result-main-ui' ref='zmiti-result-main-ui' style={{height:this.viewH,WebkitTransform:'translate3d('+(this.state.isEntry?0:'1110px')+',0,0)'}}>
-				
-				<div className='zmiti-result-C' style={mainStyle}>
-					<div className="zmiti-result-main" style={resultStyle}>
-						<div className='zmiti-result-title'><img src='./assets/images/my-read.png'/></div>
-						<div className='zmiti-search-input'>
-							<img src='./assets/images/search-ico.png'/>
-							<input ref='input' value={this.state.keyworks} onChange={e=>{this.setState({keyworks:e.target.value})}} type='text' placeholder='手机号/微信号/姓名'/>
-						</div>
-						<div onTouchTap={this.beginSearch.bind(this)} className={'zmiti-search-btn '+ (this.state.search?'active':'')}>
-							<section></section>
-							<div>搜索</div>
-						</div>
-						<div className='zmiti-search-result-tip' ref='zmiti-search-result-tip'>搜索结果:</div>
-
-						{this.state.list.length<=0 &&<div className='zmiti-no-result'>暂无结果！</div>}
-						{this.state.list.map((item,i)=>{
-							return <div key={i} className='zmiti-result-item-C'>
-								<div className='zmiti-result-type'>{item.type}</div>
-								{item.children.map((child,k)=>{
-									return <section className='zmiti-result-item' key={k}>
-											<span className='zmiti-result-num'>{k+1}</span>
-
-											<div>
-												<img  src={child.qrcodeurl||'./assets/images/qrcode.jpg'}/>
-
-												<div>{child.booktitle}</div>
-												<div>{child.date}</div>
-											</div>
-									</section>
-								})}
-							</div>
-						})}	
-					</div>
-				</div>
-			</div>
+				 
 			</div>
 		);
 	}
