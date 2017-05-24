@@ -23,7 +23,7 @@ class ZmitiIndexApp extends Component {
 					<div className='zmiti-index-title'>
 						<img src='./assets/images/title1.png'/>
 						<div className='zmiti-read-btn'><a href="../read2">读书报名</a></div>
-						<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>我的阅读</div>
+						<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>进度查询</div>
 						<div className='zmiti-read-count'>
 							{this.state.count}
 						</div>
