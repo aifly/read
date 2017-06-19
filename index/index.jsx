@@ -21,9 +21,25 @@ class ZmitiIndexApp extends Component {
 
 				<section className='zmiti-index-scroll'>
 					<div className='zmiti-index-title'>
-						<img src='./assets/images/title1.png'/>
-						<div className='zmiti-read-btn'><a href="../read2">读书报名</a></div>
-						<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>进度查询</div>
+						<img src='./assets/images/title.png'/>
+						<section className='zmiti-index-title-content'>
+							<div>
+								<div className='zmiti-index-nav-header'>
+									读书报名
+								</div>
+								<section className='zmiti-index-bm'>
+									<div className='zmiti-read-btn'><a href="../read2">地方大厦</a></div>
+									<div className='zmiti-read-btn'><a href="../read3">主题大厦</a></div>
+								</section>
+								<div className='zmiti-index-nav-header'>
+									进度查询
+								</div>
+								<section  className='zmiti-index-bm'>
+									<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>进度查询</div>
+									<div  className='zmiti-read-btn' style={{opacity:0}}>进度查询</div>
+								</section>
+							</div>
+						</section>
 						<div className='zmiti-read-count'>
 							{this.state.count}
 						</div>
