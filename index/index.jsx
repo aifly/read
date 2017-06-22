@@ -23,7 +23,17 @@ class ZmitiIndexApp extends Component {
 					<div className='zmiti-index-title'>
 						<img src='./assets/images/title.png'/>
 						<section className='zmiti-index-title-content'>
-							<div>
+							<div className="zmiti-index-title-img1">
+								<img src='./assets/images/title_book2.png'/>
+							</div>
+							<div className="zmiti-index-title-text1">
+								<div className="zmiti-index-title-inner1">
+									<div>“领读者计划”是于世界读书日当天，由新华社联合中信书店、微信读书、中信出版集团、三联书店推出的系列读书活动，目前已有超两万人报名参加。</div>
+									<div>活动主要包括“名人读夜读”,“微博接力”和“阅读大厦”，已接受邀请并参与的名人明星有俞敏洪、Angelababy、苏芒、苏芩、吴磊等。</div>
+									<div>活动带动了一批热爱阅读的人入驻“阅读大厦”。</div>
+								</div>
+							</div>
+							<div className="zmiti-index-title-navbar">
 								<div className='zmiti-index-nav-header'>
 									读书报名
 								</div>
@@ -31,13 +41,16 @@ class ZmitiIndexApp extends Component {
 									<div className='zmiti-read-btn'><a href="../read2">地方大厦</a></div>
 									<div className='zmiti-read-btn'><a href="../read3">主题大厦</a></div>
 								</section>
-								<div className='zmiti-index-nav-header'>
+								{
+								/*<div className='zmiti-index-nav-header'>
 									进度查询
-								</div>
-								<section  className='zmiti-index-bm'>
-									<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>进度查询</div>
-									<div  className='zmiti-read-btn' style={{opacity:0}}>进度查询</div>
-								</section>
+								</div>*/
+								}
+								{/*<section  className='zmiti-index-bm'>
+																	<div  className='zmiti-read-btn' onTouchTap={this.entryResult.bind(this)}>进度查询</div>
+																	<div  className='zmiti-read-btn' style={{opacity:0}}>进度查询</div>
+																</section>*/}
+
 							</div>
 						</section>
 						<div className='zmiti-read-count'>

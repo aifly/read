@@ -48,6 +48,26 @@ input, textarea {
   overflow: hidden; }
   .zmiti-index-main-ui .zmiti-index-title {
     position: relative; }
+  .zmiti-index-main-ui .zmiti-index-title-img1 {
+    height: 240px;
+    position: relative;
+    z-index: 2; }
+  .zmiti-index-main-ui .zmiti-index-title-text1 {
+    background-color: #f5e7d6;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -ms-border-radius: 10px;
+    font-size: 24px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+    top: -75px; }
+    .zmiti-index-main-ui .zmiti-index-title-text1 .zmiti-index-title-inner1 {
+      padding: 45px 25px 10px 25px; }
+      .zmiti-index-main-ui .zmiti-index-title-text1 .zmiti-index-title-inner1 div {
+        text-indent: 2em;
+        padding: 0 0 30px 0;
+        color: #3c3c3c; }
   .zmiti-index-main-ui .zmiti-read-count {
     position: absolute;
     bottom: 75px;
@@ -61,11 +81,14 @@ input, textarea {
   .zmiti-index-main-ui .zmiti-index-title-content {
     width: 90%;
     left: 5%;
-    height: 320px;
+    height: 1080px;
     position: absolute;
     bottom: 140px; }
     .zmiti-index-main-ui .zmiti-index-title-content > div {
       margin-top: 20px; }
+  .zmiti-index-main-ui .zmiti-index-title-navbar {
+    position: relative;
+    top: -40px; }
   .zmiti-index-main-ui .zmiti-index-nav-header {
     color: #fff;
     width: 160px;
@@ -78,6 +101,10 @@ input, textarea {
     top: 10px; }
     .zmiti-index-main-ui .zmiti-index-nav-header:nth-of-type(2) {
       top: 60px; }
+  .zmiti-index-main-ui .zmiti-index-nav-header:nth-of-type(1) {
+    position: relative;
+    left: 0;
+    margin-bottom: 30px; }
   .zmiti-index-main-ui .zmiti-index-bm {
     display: -webkit-box;
     -webkit-box-align: center;
