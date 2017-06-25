@@ -395,7 +395,7 @@ export class App extends Component {
 			wxappsecret:'149cdef95c99ff7cab523d8beca86080',
 			loadingImg:[
 				'./assets/images/title.png',
-				'./assets/images/main.png',
+				'./assets/images/main1.png',
 				'./assets/images/loading.jpg',
 				'./assets/images/zmiti.png',
 				'./assets/images/my-read.png',
