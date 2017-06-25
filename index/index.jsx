@@ -57,7 +57,7 @@ class ZmitiIndexApp extends Component {
 							{this.state.count}
 						</div>
 					</div>
-					<img src='./assets/images/main.png'/>
+					<img src='./assets/images/main1.png'/>
 				</section>
 
 			</div>
