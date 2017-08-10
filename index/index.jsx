@@ -412,7 +412,21 @@ class ZmitiIndexApp extends Component {
 								<div className='clearfix'></div>
 							</div>
 						</div>
+						<div className='zmiti-read-item'>
+							<div className='zmiti-read-item-tit'>
+								<img src='./assets/images/tit_06.png'/>
+							</div>
+							<div className='zmiti-read-item-inner'>
+								<div className='zmiti-read-item-pics'>
+									<img src='./assets/images/panel_06.png'/>
+								</div>
+							</div>
+						</div>
+						<div className='zmiti-read-bottom'>
+							<img src='./assets/images/panel_07.jpg'/>
+						</div>
 					</div>
+					
 				</section>
 
 			</div>

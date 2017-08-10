@@ -174,6 +174,8 @@ input, textarea {
       padding: 40px 0 10px 0;
       border-radius: 10px;
       -webkit-border-radius: 10px; }
+      .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner .zmiti-read-item-pics {
+        padding: 30px 20px 20px 20px; }
       .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner ul li {
         width: 137px;
         padding: 0 10px;
@@ -190,5 +192,10 @@ input, textarea {
 
 .clearfix {
   clear: both; }
+
+.zmiti-read-bottom {
+  margin-top: 40px; }
+  .zmiti-read-bottom img {
+    display: block; }
 
 /*# sourceMappingURL=index.css.map */

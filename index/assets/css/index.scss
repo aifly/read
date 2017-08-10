@@ -189,6 +189,9 @@ input, textarea {
       padding:40px 0 10px 0;
       border-radius: 10px;
       -webkit-border-radius:10px;
+      .zmiti-read-item-pics{
+        padding:30px 20px 20px 20px;
+      }
       ul{
         li{
           width:137px;
@@ -212,3 +215,9 @@ input, textarea {
   }
 }
 .clearfix{clear:both;}
+.zmiti-read-bottom{
+  margin-top: 40px;
+  img{
+    display: block;
+  }
+}
