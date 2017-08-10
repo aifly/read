@@ -7,7 +7,7 @@ class ZmitiIndexApp extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			count:'200,000,000'
+			count:'300,000,000'
 		};
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -342,31 +342,7 @@ class ZmitiIndexApp extends Component {
 								
 							</div>
 						</div>
-						<div className='zmiti-read-item'>
-							<div className='zmiti-read-item-tit'>
-								<img src='./assets/images/tit_04.png'/>
-							</div>
-							<div className='zmiti-read-item-inner'>
-								<ul>
-									<li><img src='./assets/images/pic_41.png'/>
-										<div className='zmiti-read-item-name'>
-										陈赫
-										</div>
-									</li>
-									<li><img src='./assets/images/pic_42.png'/>
-										<div className='zmiti-read-item-name'>
-										麦家
-										</div>
-									</li>
-									<li><img src='./assets/images/pic_56.png'/>
-										<div className='zmiti-read-item-name'>
-										佟大为
-										</div>
-									</li>
-								</ul>
-								<div className='clearfix'></div>
-							</div>
-						</div>
+						
 						<div className='zmiti-read-item'>
 							<div className='zmiti-read-item-tit'>
 								<img src='./assets/images/tit_05.png'/>
