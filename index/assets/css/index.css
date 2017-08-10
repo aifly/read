@@ -154,5 +154,41 @@ input, textarea {
     background: #999;
     color: #fff;
     text-align: center; }
+  .zmiti-index-main-ui .zmiti-read-panel {
+    background-color: #ffffff; }
+  .zmiti-index-main-ui .zmiti-read-item {
+    padding: 40px 20px 0 20px;
+    position: relative;
+    margin-bottom: 60px; }
+    .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-tit {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 16px; }
+      .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-tit img {
+        width: 260px;
+        margin: 0 auto;
+        display: block; }
+    .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner {
+      background-color: #e8f1ff;
+      padding: 40px 0 10px 0;
+      border-radius: 10px;
+      -webkit-border-radius: 10px; }
+      .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner ul li {
+        width: 137px;
+        padding: 0 10px;
+        margin: 20px;
+        float: left; }
+        .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner ul li .zmiti-read-item-name {
+          font-size: 24px;
+          color: #4c4c4a;
+          line-height: 1.8;
+          text-align: center; }
+        .zmiti-index-main-ui .zmiti-read-item .zmiti-read-item-inner ul li img {
+          width: 137px;
+          height: 137px; }
+
+.clearfix {
+  clear: both; }
 
 /*# sourceMappingURL=index.css.map */
