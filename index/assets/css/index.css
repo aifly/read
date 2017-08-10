@@ -198,4 +198,23 @@ input, textarea {
   .zmiti-read-bottom img {
     display: block; }
 
+.zmiti-read-arrow {
+  display: inline-block;
+  position: fixed;
+  width: 28px;
+  height: 22px;
+  z-index: 1000;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -14px;
+  -webkit-animation: shake 1.5s linear infinite; }
+
+@-webkit-keyframes shake {
+  from {
+    -webkit-transform: translateY(0);
+    opacity: .2; }
+  to {
+    -webkit-transform: translateY(-15px);
+    opacity: 1; } }
+
 /*# sourceMappingURL=index.css.map */

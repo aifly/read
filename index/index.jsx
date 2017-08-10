@@ -70,7 +70,7 @@ class ZmitiIndexApp extends Component {
 										</div>
 									</li>
 									<li>
-										<a href='https://m.weibo.cn/1699432410/4132332720387778'>唐嫣</a>
+										<a href='https://m.weibo.cn/1699432410/4132332720387778'><img src='./assets/images/pic_59.png'/></a>
 										<div className='zmiti-read-item-name'>
 										唐嫣
 										</div>
@@ -236,7 +236,7 @@ class ZmitiIndexApp extends Component {
 										月关
 										</div>
 									</li>
-									<li><a href='http://mp.weixin.qq.com/s/5mYchMa1anFnhe_qyei58'>李梦</a>
+									<li><a href='http://mp.weixin.qq.com/s/5mYchMa1anFnhe_qyei58'><img src='./assets/images/pic_60.png'/></a>
 										<div className='zmiti-read-item-name'>
 										李梦
 										</div>
@@ -404,7 +404,7 @@ class ZmitiIndexApp extends Component {
 					</div>
 					
 				</section>
-
+				<div className='zmiti-read-arrow'><img src='./assets/images/info.png'/></div>
 			</div>
 		);
 	}
