@@ -403,7 +403,7 @@ export class App extends Component {
 				'./assets/images/tit_06.png',
 				'./assets/images/info.png',
 				'./assets/images/panel_06.png',
-				'./assets/images/panel_07.png',
+				'./assets/images/panel_07.jpg',
 				'./assets/images/pic_01.png',
 				'./assets/images/pic_59.png',
 				'./assets/images/pic_05.png',
@@ -457,7 +457,7 @@ export class App extends Component {
 
 		s.wxappid = data.wxappid;
 		s.wxappsecret = data.wxappsecret;
-<<<<<<< HEAD
+
 		s.loading(data.loadingImg,(scale)=>{
 						s.setState({
 							progress:(scale*100|0)+'%'
@@ -466,20 +466,8 @@ export class App extends Component {
 						s.setState({
 							showLoading:false
 						});
-						s.scroll.refresh();
+						
 					});
-=======
-		s.loading(data.loadingImg, (scale) => {
-			s.setState({
-				progress: (scale * 100 | 0) + '%'
-			})
-		}, () => {
-			s.setState({
-				showLoading: false
-			});
-
-		});
->>>>>>> d001b4c2797e110d246695cc5e9362c62cc9c14a
 		return;
 		$.ajax({
 			url: 'http://api.zmiti.com/v2/weixin/getwxuserinfo/',
