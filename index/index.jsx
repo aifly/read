@@ -236,7 +236,7 @@ class ZmitiIndexApp extends Component {
 										月关
 										</div>
 									</li>
-									<li><a href='http://mp.weixin.qq.com/s/5mYchMa1anFnhe_qyei58'><img src='./assets/images/pic_60.png'/></a>
+									<li><a href='https://mp.weixin.qq.com/s/5mYchMa1anFnhe_qyei58Q'><img src='./assets/images/pic_60.png'/></a>
 										<div className='zmiti-read-item-name'>
 										李梦
 										</div>
