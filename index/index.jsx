@@ -248,7 +248,7 @@ class ZmitiIndexApp extends Component {
 									</li>
 									<li><a href='#'><img src='./assets/images/pic_54.png'/></a>
 										<div className='zmiti-read-item-name'>
-										唐欣甜
+										唐欣恬
 										</div>
 									</li>
 									<li><a href='#'><img src='./assets/images/pic_55.png'/></a>
